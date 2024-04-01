@@ -5,10 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".BlankFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/bookTitleTextView"
+        android:layout_width="299dp"
+        android:layout_height="144dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Book Title" />
+
+    <TextView
+        android:id="@+id/bookAuthorTextView"
+        android:layout_width="234dp"
+        android:layout_height="91dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="Book Author" />
 
 </FrameLayout>
