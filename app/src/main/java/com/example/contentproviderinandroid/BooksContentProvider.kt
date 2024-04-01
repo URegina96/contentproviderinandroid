@@ -13,7 +13,7 @@ class BooksContentProvider : ContentProvider() {
     private lateinit var dbHelper: SQLiteOpenHelper
 
     override fun onCreate(): Boolean {
-        dbHelper = YourDatabaseHelper(context)
+        dbHelper = context?.let { YourDatabaseHelper(it) }!!
         return true
     }
 
