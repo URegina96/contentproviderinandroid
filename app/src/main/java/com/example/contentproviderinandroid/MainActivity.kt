@@ -4,6 +4,7 @@ import android.content.ContentResolver
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -16,21 +17,30 @@ class MainActivity : AppCompatActivity() {
         val uri: Uri = Uri.parse("content://com.example.bookscontentprovider/books")
         val cursor = contentResolver.query(uri, null, null, null, null)
 
-        cursor?.let {
-            if (it.moveToFirst()) {
-                val titleIndex = it.getColumnIndex("title")
-                val authorIndex = it.getColumnIndex("author")
+        val addBookButton = findViewById<Button>(R.id.addBookButton)
+        addBookButton.setOnClickListener {
+            val fragment = AddBookFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
 
-                val bookTitle = it.getString(titleIndex)
-                val bookAuthor = it.getString(authorIndex)
+            cursor?.let {
+                if (it.moveToFirst()) {
+                    val titleIndex = it.getColumnIndex("title")
+                    val authorIndex = it.getColumnIndex("author")
 
-                val bookTitleTextView = findViewById<TextView>(R.id.bookTitleTextView)
-                val bookAuthorTextView = findViewById<TextView>(R.id.bookAuthorTextView)
+                    val bookTitle = it.getString(titleIndex)
+                    val bookAuthor = it.getString(authorIndex)
 
-                bookTitleTextView.text = bookTitle
-                bookAuthorTextView.text = bookAuthor
+                    val bookTitleTextView = findViewById<TextView>(R.id.bookTitleTextView)
+                    val bookAuthorTextView = findViewById<TextView>(R.id.bookAuthorTextView)
+
+                    bookTitleTextView.text = bookTitle
+                    bookAuthorTextView.text = bookAuthor
+                }
+                it.close()
             }
-            it.close()
         }
     }
 }
